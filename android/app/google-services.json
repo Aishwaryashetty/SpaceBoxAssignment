@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "113119961933",
+    "project_id": "spaceboxassignment-5fcc9",
+    "storage_bucket": "spaceboxassignment-5fcc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113119961933:android:158974190064d075aacd04",
+        "android_client_info": {
+          "package_name": "com.aishwaryapshetty.SpaceBoxAssignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpyy9e9eouXhO3qlv9BQBnl8uiIjRuLrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
