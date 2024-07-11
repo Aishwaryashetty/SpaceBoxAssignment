@@ -3045,9 +3045,9 @@ __metadata:
     react-native: 0.74.3
     react-native-image-picker: ^7.1.2
     react-native-permissions: ^4.1.5
+    react-native-uuid: ^2.0.2
     react-test-renderer: 18.2.0
     typescript: 5.0.4
-    uuid: ^10.0.0
   languageName: unknown
   linkType: soft
 
@@ -8068,6 +8068,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-uuid@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "react-native-uuid@npm:2.0.2"
+  checksum: 149f65549132a240ac237f4db34063fd08473e4b3a9b5958e3d0d6722cf10754efb222b1c6085a3dc42e0718ca9575b38cd5535ae83a96534dde0f54d343e915
+  languageName: node
+  linkType: hard
+
 "react-native@npm:0.74.3":
   version: 0.74.3
   resolution: "react-native@npm:0.74.3"
@@ -9452,15 +9459,6 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "uuid@npm:10.0.0"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 4b81611ade2885d2313ddd8dc865d93d8dccc13ddf901745edca8f86d99bc46d7a330d678e7532e7ebf93ce616679fb19b2e3568873ac0c14c999032acb25869
   languageName: node
   linkType: hard
 
