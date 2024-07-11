@@ -1,4 +1,4 @@
-package com.spaceboxassignment
+package com.aishwaryapshetty.SpaceBoxAssignment
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

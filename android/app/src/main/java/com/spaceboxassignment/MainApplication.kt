@@ -1,4 +1,4 @@
-package com.spaceboxassignment
+package com.aishwaryapshetty.SpaceBoxAssignment
 
 import android.app.Application
 import com.facebook.react.PackageList

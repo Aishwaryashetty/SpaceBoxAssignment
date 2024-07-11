@@ -75,9 +75,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.spaceboxassignment"
+    namespace "com.aishwaryapshetty.SpaceBoxAssignment"
     defaultConfig {
-        applicationId "com.spaceboxassignment"
+        applicationId "com.aishwaryapshetty.SpaceBoxAssignment"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
