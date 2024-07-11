@@ -19,8 +19,18 @@ import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import storage from '@react-native-firebase/storage';
 
 const windowWidth = Dimensions.get('window').width;
-const itemWidth = 100; // Adjust this value based on your design
-const numColumns = Math.floor(windowWidth / itemWidth);
+const itemSize = (windowWidth - 40) / 3;
+const numColumns = 3;
+
+enum Colors {
+  Primary = '#606C38',
+  Secondary = '#283618',
+  Background = '#FEFAE0',
+  Accent = '#DDA15E',
+  Highlight = '#BC6C25',
+  TextPrimary = '#FFFFFF',
+  TextSecondary = '#283618',
+}
 
 const App: React.FC = () => {
   const [imageSource, setImageSource] = useState<string | null>(null);
@@ -97,6 +107,7 @@ const App: React.FC = () => {
   const handleRetake = () => {
     setImageSource(null);
     setShowCamera(false);
+    setImages([]);
   };
 
   const handleUploadImage = async () => {
@@ -117,7 +128,6 @@ const App: React.FC = () => {
       await task;
       showAlert('Success', 'Image uploaded successfully!');
       handleRetake();
-      fetchImages(); // Refresh the image list
     } catch (error) {
       showError('Failed to upload image.');
     }
@@ -141,7 +151,7 @@ const App: React.FC = () => {
     try {
       await imageRef.delete();
       showAlert('Success', 'Image deleted successfully!');
-      fetchImages(); // Refresh the image list
+      fetchImages();
     } catch (error) {
       showError('Failed to delete image.');
     }
@@ -190,7 +200,7 @@ const App: React.FC = () => {
         {images.length === 0 && (
           <Image
             style={styles.previewImage}
-            source={imageSource ? { uri: imageSource } : require('./src/assets/images/NoImage.jpeg')}
+            source={imageSource ? { uri: imageSource } : require('./src/assets/images/waiting.png')}
           />
         )}
 
@@ -239,7 +249,7 @@ const App: React.FC = () => {
           </View>
         )}
       </View>
-      {loading && <ActivityIndicator style={styles.loadingIndicator} size="large" color="#0000ff" />}
+      {loading && <ActivityIndicator style={styles.loadingIndicator} size="large" color={Colors.Accent} />}
     </SafeAreaView>
   );
 };
@@ -247,56 +257,62 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 5,
-    margin: 5,
+    backgroundColor: Colors.Background,
+    padding: 10,
   },
   title: {
-    fontSize: 30,
-    paddingLeft: 20,
+    fontSize: 28,
+    color: Colors.Secondary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
   },
   buttonContainer: {
     position: 'absolute',
     bottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
     width: '100%',
+    alignItems: 'center',
   },
   previewImage: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
     marginBottom: 20,
+    borderRadius: 10,
   },
   row: {
     flexDirection: 'row',
-    margin: 5,
+    justifyContent: 'space-around',
+    marginBottom: 20,
   },
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
+    backgroundColor: Colors.Secondary,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 25,
     marginHorizontal: 10,
-    borderColor: 'beige',
-    borderWidth: 2,
-    backgroundColor: 'black',
+    marginVertical: 5,
+    elevation: 3,
   },
   buttonText: {
-    color: 'white',
+    color: Colors.TextPrimary,
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   imageContainer: {
     margin: 5,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1 / numColumns, // Ensure each image container takes equal space
+    borderRadius: 10,
+    elevation: 10,
+    width: itemSize,
+    height: itemSize,
+    shadowColor: Colors.Secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
   },
   image: {
-    width: itemWidth - 10, // Subtract some padding/margin
-    height: itemWidth - 10, // Subtract some padding/margin
-    borderRadius: 10,
+    width: '100%',
+    height: '100%',
   },
   columnWrapper: {
     justifyContent: 'space-between',
