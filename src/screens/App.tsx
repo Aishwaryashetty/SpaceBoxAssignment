@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, SafeAreaView, ActivityIndicator } from 'react-n
 import uuid from 'react-native-uuid';
 import storage from '@react-native-firebase/storage';
 
-import { Colors, Messages } from '../utilities/constants';
+import { Colors, Messages } from '../utilities/Constants';
 import { checkPermissions } from '../utilities/Permissions';
 import { showAlert, showError } from '../components/BasicComponents';
 

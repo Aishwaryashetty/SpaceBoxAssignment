@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
-import { Colors } from '../utilities/constants';
+import { Colors } from '../utilities/Constants';
 
 interface UploadProgressComponentProps {
     uploadProgress: number;

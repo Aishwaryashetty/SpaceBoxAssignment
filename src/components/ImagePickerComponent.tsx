@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { launchImageLibrary, launchCamera, ImageLibraryOptions, ImagePickerResponse } from 'react-native-image-picker';
 import { showError } from '../components/BasicComponents';
-import { Colors, Messages } from '../utilities/constants';
+import { Colors, Messages } from '../utilities/Constants';
 
 interface ImagePickerComponentProps {
     setImageSource: (uri: string | null) => void;

@@ -23,7 +23,7 @@ const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({
             <View style={styles.previewWrapper}>
                 <Image
                     style={styles.previewImage}
-                    source={imageSource ? { uri: imageSource } : require('./src/assets/images/waiting.png')}
+                    source={imageSource ? { uri: imageSource } : require('../assets/images/waiting.png')}
                 />
                 {imageSource && uploading && (
                     <BlurView style={styles.absoluteBlur} blurType="light" blurAmount={10}>
