@@ -1,7 +1,4 @@
-import {
-    Alert,
-    AlertOptions,
-} from 'react-native';
+import { Alert, AlertOptions } from 'react-native';
 
 export const showAlert = (
     title: string,

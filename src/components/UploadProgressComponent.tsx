@@ -1,20 +1,22 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
+
 import { Colors } from '../utilities/Constants';
 
 interface UploadProgressComponentProps {
     uploadProgress: number;
     imageSource: string;
+    testID: string;
 }
 
-const UploadProgressComponent: React.FC<UploadProgressComponentProps> = ({ uploadProgress, imageSource }) => {
+const UploadProgressComponent: React.FC<UploadProgressComponentProps> = ({ uploadProgress, imageSource, testID }) => {
     return (
         <BlurView style={styles.absoluteBlur} blurType="light" blurAmount={10}>
-            <View style={[styles.overlay, { backgroundColor: 'rgba(255, 255, 0, 0.3)' }]}>
+            <View style={[styles.overlay, { backgroundColor: 'rgba(255, 255, 0, 0.3)' }]} testID={testID}>
                 <View style={styles.uploadProgressContainer}>
                     <Text style={styles.uploadProgressText}>Uploading: {Math.round(uploadProgress)}%</Text>
-                    <Image source={{ uri: imageSource }} style={styles.uploadImagePreview} />
+                    <Image source={{ uri: imageSource }} style={styles.uploadImagePreview} testID="upload-image-preview" />
                 </View>
             </View>
         </BlurView>

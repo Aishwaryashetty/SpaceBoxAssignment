@@ -1,29 +1,29 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
+
 import { Colors } from '../utilities/Constants';
 
 interface ImageUploadComponentProps {
     imageSource: string | null;
     uploading: boolean;
     uploadProgress: number;
-    handleRetake: () => void;
-    handleUploadImage: () => void;
+    testID: string;
 }
 
 const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({
     imageSource,
     uploading,
     uploadProgress,
-    handleRetake,
-    handleUploadImage
+    testID
 }) => {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={testID}>
             <View style={styles.previewWrapper}>
                 <Image
                     style={styles.previewImage}
                     source={imageSource ? { uri: imageSource } : require('../assets/images/waiting.png')}
+                    testID="preview-image"
                 />
                 {imageSource && uploading && (
                     <BlurView style={styles.absoluteBlur} blurType="light" blurAmount={10}>
@@ -35,16 +35,6 @@ const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({
                     </BlurView>
                 )}
             </View>
-            {imageSource && !uploading && (
-                <>
-                    <TouchableOpacity style={styles.button} onPress={handleRetake}>
-                        <Text style={styles.buttonText}>Retake</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={handleUploadImage}>
-                        <Text style={styles.buttonText}>Use Photo</Text>
-                    </TouchableOpacity>
-                </>
-            )}
         </View>
     );
 };
@@ -86,21 +76,6 @@ const styles = StyleSheet.create({
         color: Colors.TextPrimary,
         fontWeight: 'bold',
         marginBottom: 10,
-    },
-    button: {
-        backgroundColor: Colors.Secondary,
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-        borderRadius: 25,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        elevation: 3,
-    },
-    buttonText: {
-        color: Colors.TextPrimary,
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,

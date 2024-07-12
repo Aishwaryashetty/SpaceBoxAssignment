@@ -11,6 +11,8 @@ export const checkPermissions = async (): Promise<void> => {
             : [PERMISSIONS.ANDROID.CAMERA, PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE];
 
         const results: PermissionStatus[] = await Promise.all(permissions.map(permission => check(permission)));
+        console.log('results checkPermissions', results)
+
         if (results.some(result => result !== RESULTS.GRANTED)) {
             await requestPermissions(permissions);
         }
@@ -22,6 +24,7 @@ export const checkPermissions = async (): Promise<void> => {
 export const requestPermissions = async (permissions: Permission[]): Promise<void> => {
     try {
         const results: PermissionStatus[] = await Promise.all(permissions.map(permission => request(permission)));
+        console.log('results', results)
         if (results.some(result => result !== RESULTS.GRANTED)) {
             showAlert(
                 'Permissions Required',

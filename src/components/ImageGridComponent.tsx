@@ -1,21 +1,43 @@
 import React from 'react';
-import { View, FlatList, TouchableOpacity, Image, StyleSheet, Text, Dimensions, ListRenderItem } from 'react-native';
+import { View, FlatList, TouchableOpacity, Image, StyleSheet, Text, Dimensions, ListRenderItem, Alert } from 'react-native';
+
 import { Colors } from '../utilities/Constants';
 
 interface ImageGridComponentProps {
     images: string[];
     handleDelete: (imageUrl: string) => void;
+    handleHomePress: () => void;
+    testID: string;
 }
 
-const ImageGridComponent: React.FC<ImageGridComponentProps> = ({ images, handleDelete }) => {
+const ImageGridComponent: React.FC<ImageGridComponentProps> = ({ images, handleDelete, handleHomePress, testID }) => {
+    const confirmDelete = (imageUrl: string) => {
+        Alert.alert(
+            "Confirm Delete",
+            "Are you sure you want to delete this image?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => handleDelete(imageUrl)
+                }
+            ],
+            { cancelable: true }
+        );
+    };
+
     const renderImage: ListRenderItem<string> = ({ item }) => (
-        <TouchableOpacity onPress={() => handleDelete(item)} style={styles.imageContainer}>
+        <TouchableOpacity onPress={() => confirmDelete(item)} style={styles.imageContainer} testID="image-item">
             <Image source={{ uri: item }} style={styles.image} />
         </TouchableOpacity>
     );
 
     return (
-        <View style={styles.gridContainer}>
+        <View style={styles.gridContainer} testID={testID}>
             <FlatList
                 data={images}
                 renderItem={renderImage}
@@ -23,7 +45,7 @@ const ImageGridComponent: React.FC<ImageGridComponentProps> = ({ images, handleD
                 numColumns={3}
                 columnWrapperStyle={styles.columnWrapper}
             />
-            <TouchableOpacity style={styles.button} onPress={() => handleDelete(images[0])}>
+            <TouchableOpacity style={styles.button} onPress={handleHomePress} testID="home-button">
                 <Text style={styles.buttonText}>Home</Text>
             </TouchableOpacity>
         </View>

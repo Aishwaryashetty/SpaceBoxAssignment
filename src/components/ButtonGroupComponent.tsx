@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Colors } from '../utilities/Constants';
+import { View, StyleSheet } from 'react-native';
+
+import CustomButtonComponent from './CustomButtonComponent';
 
 interface ButtonGroupComponentProps {
     handleRetake: () => void;
@@ -8,28 +9,32 @@ interface ButtonGroupComponentProps {
     fetchImages: () => void;
     showCamera: boolean;
     imagesLength: number;
+    imageSource: string | null;
+    uploading: boolean;
+    testID: string;
 }
 
-const ButtonGroupComponent: React.FC<ButtonGroupComponentProps> = ({ handleRetake, handleUploadImage, fetchImages, showCamera, imagesLength }) => {
+const ButtonGroupComponent: React.FC<ButtonGroupComponentProps> = ({
+    handleRetake,
+    handleUploadImage,
+    fetchImages,
+    showCamera,
+    imagesLength,
+    imageSource,
+    uploading,
+    testID
+}) => {
     return (
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer} testID={testID}>
             {!showCamera && imagesLength === 0 && (
-                <View>
-                    <TouchableOpacity style={styles.button} onPress={fetchImages}>
-                        <Text style={styles.buttonText}>Fetch all uploaded Images</Text>
-                    </TouchableOpacity>
-                </View>
+                <CustomButtonComponent onPress={fetchImages} title="Fetch all uploaded Images" testID="fetch-images-button" />
             )}
 
-            {showCamera && (
-                <>
-                    <TouchableOpacity style={styles.button} onPress={handleRetake}>
-                        <Text style={styles.buttonText}>Retake</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={handleUploadImage}>
-                        <Text style={styles.buttonText}>Use Photo</Text>
-                    </TouchableOpacity>
-                </>
+            {showCamera && imageSource && !uploading && (
+                <View>
+                    <CustomButtonComponent onPress={handleRetake} title="Retake" testID="retake-button" />
+                    <CustomButtonComponent onPress={handleUploadImage} title="Use Photo" testID="use-photo-button" />
+                </View>
             )}
         </View>
     );
@@ -41,21 +46,6 @@ const styles = StyleSheet.create({
         bottom: 20,
         width: '100%',
         alignItems: 'center',
-    },
-    button: {
-        backgroundColor: Colors.Secondary,
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-        borderRadius: 25,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        elevation: 3,
-    },
-    buttonText: {
-        color: Colors.TextPrimary,
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
     },
 });
 

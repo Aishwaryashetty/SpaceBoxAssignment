@@ -28,6 +28,11 @@ const App: React.FC = () => {
   const handleRetake = () => {
     setImageSource(null);
     setShowCamera(false);
+  };
+
+  const handleHomePress = () => {
+    setImageSource(null);
+    setShowCamera(false);
     setImages([]);
   };
 
@@ -95,7 +100,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} testID="app">
       <Text style={styles.title}>Hey, Good Day!</Text>
       <View style={{ justifyContent: 'center', flex: 1 }}>
         {images.length === 0 && (
@@ -103,13 +108,16 @@ const App: React.FC = () => {
             imageSource={imageSource}
             uploading={uploading}
             uploadProgress={uploadProgress}
-            handleRetake={handleRetake}
-            handleUploadImage={handleUploadImage}
+            testID="image-upload-component"
           />
         )}
 
         {images.length === 0 && !showCamera && (
-          <ImagePickerComponent setImageSource={setImageSource} setShowCamera={setShowCamera} />
+          <ImagePickerComponent
+            setImageSource={setImageSource}
+            setShowCamera={setShowCamera}
+            testID="image-picker-component"
+          />
         )}
 
         <ButtonGroupComponent
@@ -118,15 +126,27 @@ const App: React.FC = () => {
           fetchImages={fetchImages}
           showCamera={showCamera}
           imagesLength={images.length}
+          testID="button-group-component"
+          imageSource={imageSource}
+          uploading={uploading}
         />
 
         {images.length > 0 && (
-          <ImageGridComponent images={images} handleDelete={handleDelete} />
+          <ImageGridComponent
+            images={images}
+            handleDelete={handleDelete}
+            handleHomePress={handleHomePress}
+            testID="image-grid-component"
+          />
         )}
       </View>
-      {loading && <ActivityIndicator style={styles.loadingIndicator} size="large" color={Colors.Accent} />}
+      {loading && <ActivityIndicator style={styles.loadingIndicator} size="large" color={Colors.Accent} testID="loading-indicator" />}
       {uploading && imageSource && (
-        <UploadProgressComponent uploadProgress={uploadProgress} imageSource={imageSource} />
+        <UploadProgressComponent
+          uploadProgress={uploadProgress}
+          imageSource={imageSource}
+          testID="upload-progress-component"
+        />
       )}
     </SafeAreaView>
   );
