@@ -2,12 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../utilities/Constants';
-
-interface CustomButtonComponentProps {
-    onPress: () => void;
-    title: string;
-    testID: string;
-}
+import { CustomButtonComponentProps } from '../utilities/Interfaces';
 
 const CustomButtonComponent: React.FC<CustomButtonComponentProps> = ({ onPress, title, testID }) => {
     return (

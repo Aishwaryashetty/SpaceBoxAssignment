@@ -3,22 +3,14 @@ import { View, StyleSheet } from 'react-native';
 
 import CustomButtonComponent from './CustomButtonComponent';
 
-interface ButtonGroupComponentProps {
-    handleRetake: () => void;
-    handleUploadImage: () => void;
-    fetchImages: () => void;
-    showCamera: boolean;
-    imagesLength: number;
-    imageSource: string | null;
-    uploading: boolean;
-    testID: string;
-}
+import { ButtonGroupComponentProps } from '../utilities/Interfaces';
+
 
 const ButtonGroupComponent: React.FC<ButtonGroupComponentProps> = ({
     handleRetake,
     handleUploadImage,
     fetchImages,
-    showCamera,
+    showDummy,
     imagesLength,
     imageSource,
     uploading,
@@ -26,14 +18,14 @@ const ButtonGroupComponent: React.FC<ButtonGroupComponentProps> = ({
 }) => {
     return (
         <View style={styles.buttonContainer} testID={testID}>
-            {!showCamera && imagesLength === 0 && (
+            {!showDummy && imagesLength === 0 && (
                 <CustomButtonComponent onPress={fetchImages} title="Fetch all uploaded Images" testID="fetch-images-button" />
             )}
 
-            {showCamera && imageSource && !uploading && (
+            {showDummy && imageSource && !uploading && (
                 <View>
                     <CustomButtonComponent onPress={handleRetake} title="Retake" testID="retake-button" />
-                    <CustomButtonComponent onPress={handleUploadImage} title="Use Photo" testID="use-photo-button" />
+                    <CustomButtonComponent onPress={handleUploadImage} title="Upload Image" testID="upload-image-button" />
                 </View>
             )}
         </View>

@@ -1,17 +1,16 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { launchImageLibrary, launchCamera, ImageLibraryOptions, ImagePickerResponse } from 'react-native-image-picker';
 
-import { showError } from '../components/BasicComponents';
+import { showError } from '../utilities/CommonFunctions';
 import { Colors, Messages } from '../utilities/Constants';
+import { ImageData, ImagePickerComponentProps } from '../utilities/Interfaces';
 
-interface ImagePickerComponentProps {
-    setImageSource: (uri: string | null) => void;
-    setShowCamera: (show: boolean) => void;
-    testID?: string;
-}
+import CustomButtonComponent from './CustomButtonComponent';
 
-const ImagePickerComponent: React.FC<ImagePickerComponentProps> = ({ setImageSource, setShowCamera, testID }) => {
+
+
+const ImagePickerComponent: React.FC<ImagePickerComponentProps> = ({ setImageSource, setShowDummy, testID }) => {
     const handleMediaPicker = async (pickerFunction: (options: ImageLibraryOptions) => Promise<ImagePickerResponse>) => {
         try {
             const options: ImageLibraryOptions = {
@@ -19,18 +18,27 @@ const ImagePickerComponent: React.FC<ImagePickerComponentProps> = ({ setImageSou
                 maxWidth: 800,
                 maxHeight: 800,
                 quality: 1,
-                selectionLimit: 1,
+                selectionLimit: 9,
                 presentationStyle: 'popover',
             };
 
             const result = await pickerFunction(options);
 
-            if (result?.assets && result.assets[0]?.uri) {
-                setImageSource(result.assets[0].uri);
-                setShowCamera(true);
+            if (result?.assets) {
+                let ImageSet: ImageData[] = await Promise.all(result.assets.map(async (asset) => {
+                    const uri = asset.uri || '';
+                    return {
+                        uri: uri,
+                        fileName: asset.fileName || '',
+                        fileSize: asset.fileSize || 0,
+                        type: asset.type || '',
+                    };
+                }));
+                setImageSource(ImageSet);
+                setShowDummy(true);
             } else {
-                console.log(Messages.NoMediaSelected);
-                setShowCamera(false);
+                showError(Messages.NoMediaSelected);
+                setShowDummy(false);
             }
         } catch (error) {
             showError(Messages.FailedToOpenMediaPicker);
@@ -40,14 +48,12 @@ const ImagePickerComponent: React.FC<ImagePickerComponentProps> = ({ setImageSou
     const handleOpenGallery = () => handleMediaPicker(launchImageLibrary);
     const handleTakePhoto = () => handleMediaPicker(launchCamera);
 
+
+
     return (
         <View style={styles.row} testID={testID}>
-            <TouchableOpacity style={styles.button} onPress={handleOpenGallery} testID="open-gallery-button">
-                <Text style={styles.buttonText}>Open Gallery</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleTakePhoto} testID="open-camera-button">
-                <Text style={styles.buttonText}>Open Camera</Text>
-            </TouchableOpacity>
+            <CustomButtonComponent onPress={handleOpenGallery} title="Open Gallery" testID="open-gallery-button" />
+            <CustomButtonComponent onPress={handleTakePhoto} title="Open Camera" testID="open-camera-button" />
         </View>
     );
 };

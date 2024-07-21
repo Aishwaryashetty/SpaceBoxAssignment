@@ -1,3 +1,15 @@
+import ImageResizer from 'react-native-image-resizer';
+
+export const createThumbnail = async (uri: string): Promise<string> => {
+    try {
+        const response = await ImageResizer.createResizedImage(uri, 100, 100, 'PNG', 80);
+        return response.uri;
+    } catch (err) {
+        console.error(err);
+        return uri;
+    }
+};
+
 import { Alert, AlertOptions } from 'react-native';
 
 export const showAlert = (

@@ -11,5 +11,9 @@
     "types": [
       "jest"
     ]
-  }
+  },
+  "include": [
+    "src",
+    "declarations.d.ts"
+  ]
 }
